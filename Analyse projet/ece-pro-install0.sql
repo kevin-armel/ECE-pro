@@ -1,197 +1,8 @@
 /*==============================================================*/
-/* DBMS name:      Sybase SQL Anywhere 11                       */
-/* Created on:     03/05/2018 09:28:46                          */
+/* DataBase name:      ece-pro-db                               */
+/* Created on:         03/05/2018 09:28:46                      */
 /*==============================================================*/
 
-
-if exists(select 1 from sys.sysforeignkey where role='FK_EMPLOI_PUBLIER_UTILISAT') then
-    alter table Emploi
-       delete foreign key FK_EMPLOI_PUBLIER_UTILISAT
-end if;
-
-if exists(select 1 from sys.sysforeignkey where role='FK_EXPERIEN_POSSEDER_UTILISAT') then
-    alter table Experience
-       delete foreign key FK_EXPERIEN_POSSEDER_UTILISAT
-end if;
-
-if exists(select 1 from sys.sysforeignkey where role='FK_FORMATIO_ACQUERIR_UTILISAT') then
-    alter table Formation
-       delete foreign key FK_FORMATIO_ACQUERIR_UTILISAT
-end if;
-
-if exists(select 1 from sys.sysforeignkey where role='FK_IMAGEALB_CONTENIR_UTILISAT') then
-    alter table ImageAlbum
-       delete foreign key FK_IMAGEALB_CONTENIR_UTILISAT
-end if;
-
-if exists(select 1 from sys.sysforeignkey where role='FK_MESSAGER_ENVOYER_UTILISAT') then
-    alter table Messagerie
-       delete foreign key FK_MESSAGER_ENVOYER_UTILISAT
-end if;
-
-if exists(select 1 from sys.sysforeignkey where role='FK_NOTIFICA_DECLENCHE_EMPLOI') then
-    alter table Notification
-       delete foreign key FK_NOTIFICA_DECLENCHE_EMPLOI
-end if;
-
-if exists(select 1 from sys.sysforeignkey where role='FK_NOTIFICA_DECLENCHE_POST') then
-    alter table Notification
-       delete foreign key FK_NOTIFICA_DECLENCHE_POST
-end if;
-
-if exists(select 1 from sys.sysforeignkey where role='FK_NOTIFICA_DECLENCHE_MESSAGER') then
-    alter table Notification
-       delete foreign key FK_NOTIFICA_DECLENCHE_MESSAGER
-end if;
-
-if exists(select 1 from sys.sysforeignkey where role='FK_POST_POSTER_UTILISAT') then
-    alter table Post
-       delete foreign key FK_POST_POSTER_UTILISAT
-end if;
-
-if exists(select 1 from sys.sysforeignkey where role='FK_RESEAU_AVOIR_UTILISAT') then
-    alter table Reseau
-       delete foreign key FK_RESEAU_AVOIR_UTILISAT
-end if;
-
-if exists(select 1 from sys.sysforeignkey where role='FK_UTILISAT_DESTINER_NOTIFICA') then
-    alter table Utilisateur
-       delete foreign key FK_UTILISAT_DESTINER_NOTIFICA
-end if;
-
-if exists(select 1 from sys.sysforeignkey where role='FK_APPARTEN_APPARTENI_GROUPEUS') then
-    alter table appartenir
-       delete foreign key FK_APPARTEN_APPARTENI_GROUPEUS
-end if;
-
-if exists(select 1 from sys.sysforeignkey where role='FK_APPARTEN_APPARTENI_UTILISAT') then
-    alter table appartenir
-       delete foreign key FK_APPARTEN_APPARTENI_UTILISAT
-end if;
-
-if exists(
-   select 1 from sys.systable 
-   where table_name='Emploi'
-     and table_type in ('BASE', 'GBL TEMP')
-) then
-    drop table Emploi
-end if;
-
-if exists(
-   select 1 from sys.systable 
-   where table_name='Experience'
-     and table_type in ('BASE', 'GBL TEMP')
-) then
-    drop table Experience
-end if;
-
-if exists(
-   select 1 from sys.systable 
-   where table_name='Formation'
-     and table_type in ('BASE', 'GBL TEMP')
-) then
-    drop table Formation
-end if;
-
-if exists(
-   select 1 from sys.sysindex i, sys.systable t
-   where i.table_id=t.table_id 
-     and i.index_name='GROUPEUSER_PK'
-     and t.table_name='Groupeuser'
-) then
-   drop index Groupeuser.GROUPEUSER_PK
-end if;
-
-if exists(
-   select 1 from sys.systable 
-   where table_name='Groupeuser'
-     and table_type in ('BASE', 'GBL TEMP')
-) then
-    drop table Groupeuser
-end if;
-
-if exists(
-   select 1 from sys.systable 
-   where table_name='ImageAlbum'
-     and table_type in ('BASE', 'GBL TEMP')
-) then
-    drop table ImageAlbum
-end if;
-
-if exists(
-   select 1 from sys.systable 
-   where table_name='Messagerie'
-     and table_type in ('BASE', 'GBL TEMP')
-) then
-    drop table Messagerie
-end if;
-
-if exists(
-   select 1 from sys.systable 
-   where table_name='Notification'
-     and table_type in ('BASE', 'GBL TEMP')
-) then
-    drop table Notification
-end if;
-
-if exists(
-   select 1 from sys.systable 
-   where table_name='Post'
-     and table_type in ('BASE', 'GBL TEMP')
-) then
-    drop table Post
-end if;
-
-if exists(
-   select 1 from sys.systable 
-   where table_name='Reseau'
-     and table_type in ('BASE', 'GBL TEMP')
-) then
-    drop table Reseau
-end if;
-
-if exists(
-   select 1 from sys.systable 
-   where table_name='Utilisateur'
-     and table_type in ('BASE', 'GBL TEMP')
-) then
-    drop table Utilisateur
-end if;
-
-if exists(
-   select 1 from sys.sysindex i, sys.systable t
-   where i.table_id=t.table_id 
-     and i.index_name='APPARTENIR_FK2'
-     and t.table_name='appartenir'
-) then
-   drop index appartenir.APPARTENIR_FK2
-end if;
-
-if exists(
-   select 1 from sys.sysindex i, sys.systable t
-   where i.table_id=t.table_id 
-     and i.index_name='APPARTENIR_FK'
-     and t.table_name='appartenir'
-) then
-   drop index appartenir.APPARTENIR_FK
-end if;
-
-if exists(
-   select 1 from sys.sysindex i, sys.systable t
-   where i.table_id=t.table_id 
-     and i.index_name='APPARTENIR_PK'
-     and t.table_name='appartenir'
-) then
-   drop index appartenir.APPARTENIR_PK
-end if;
-
-if exists(
-   select 1 from sys.systable 
-   where table_name='appartenir'
-     and table_type in ('BASE', 'GBL TEMP')
-) then
-    drop table appartenir
-end if;
 
 /*==============================================================*/
 /* Table: Emploi                                                */
@@ -209,8 +20,8 @@ create table Emploi
    profilEmploi         varchar(254)                   null,
    dureeEmploi          varchar(254)                   null,
    remunerationEmploi   varchar(254)                   null,
-   likerEmploi          smallint                       null,
-   partagerEmploi       smallint                       null,
+   likerEmploi          boolean                        null,
+   partagerEmploi       boolean                        null,
    constraint PK_EMPLOI primary key (idEmploi)
 );
 
@@ -282,7 +93,7 @@ create table Messagerie
    fileMessage          varchar(254)                   null,
    destinataireMessage  varchar(254)                   null,
    contenuMessage       varchar(254)                   null,
-   receptionMeessage    smallint                       null,
+   receptionMessage     boolean                        null,
    dateEmessage         timestamp                      null,
    dateRmessage         timestamp                      null,
    constraint PK_MESSAGERIE primary key (idMessage)
@@ -309,12 +120,12 @@ create table Post
    idPost               integer                        not null,
    idUser               integer                        null,
    contenuPost          varchar(254)                   null,
-   visibilitePost       smallint                       null,
+   visibilitePost       boolean                        null,
    filePost             varchar(254)                   null,
-   likerPost            smallint                       null,
-   commenterPost        smallint                       null,
+   likerPost            boolean                        null,
+   commenterPost        boolean                        null,
    commentairePost      varchar(254)                   null,
-   partagerPost         smallint                       null,
+   partagerPost         boolean                        null,
    constraint PK_POST primary key (idPost)
 );
 
@@ -345,7 +156,7 @@ create table Utilisateur
    mdpUser              varchar(254)                   null,
    avatarUser           varchar(254)                   null,
    projetUser           varchar(254)                   null,
-   activerUser          smallint                       null,
+   activerUser          boolean                        null,
    constraint PK_UTILISATEUR primary key (idUser)
 );
 
@@ -356,29 +167,7 @@ create table appartenir
 (
    idGroupe             integer                        not null,
    idUser               integer                        not null,
-   constraint PK_APPARTENIR primary key clustered (idGroupe, idUser)
-);
-
-/*==============================================================*/
-/* Index: APPARTENIR_PK                                         */
-/*==============================================================*/
-create unique clustered index APPARTENIR_PK on appartenir (
-idGroupe ASC,
-idUser ASC
-);
-
-/*==============================================================*/
-/* Index: APPARTENIR_FK                                         */
-/*==============================================================*/
-create index APPARTENIR_FK on appartenir (
-idGroupe ASC
-);
-
-/*==============================================================*/
-/* Index: APPARTENIR_FK2                                        */
-/*==============================================================*/
-create index APPARTENIR_FK2 on appartenir (
-idUser ASC
+   constraint PK_APPARTENIR primary key (idGroupe, idUser)
 );
 
 alter table Emploi
