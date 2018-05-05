@@ -1,5 +1,22 @@
 <!DOCTYPE html>
-<html lang="en">
+<?php
+session_start();
+require_once './connexion.php';
+
+if(isset($_SESSION['id']) AND $_SESSION['id']>0){
+    /*$getid = intval($GET['id']);
+    $req = $bdd->prepare("SELECT * FROM utilisateur WHERE idUser= ? ");
+    $req->execute(array($getid));
+                
+    $currentuser = $req->fetch();
+    $_SESSION['id'] = $currentuser['idUser'];
+    $_SESSION['nom'] = $currentuser['nomUser'];
+    $_SESSION['prenom'] = $currentuser['prenomUser'];
+    $_SESSION['mail'] = $currentuser['mailUser'];
+*/
+?>
+
+<html lang="fr">
 
 <head>
 	<meta charset="UTF-8">
@@ -44,7 +61,7 @@
 			<!-- Brand and toggle get grouped for better mobile display -->
 			<div class="navbar-header">
 				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-					<span class="sr-only">Toggle navigation</span>
+					<span class="sr-only">Menu</span>
 					<span class="icon-bar"></span>
 					<span class="icon-bar"></span>
 					<span class="icon-bar"></span>
@@ -59,8 +76,8 @@
                                     <li><a href="messagerie.php">Messagerie</a></li>
                                     <li><a href="notification.php">Notifications</a></li>
                                     <li><a href="emploi.php">Emploi</a></li>
-                                    <li><a href="presentation.php">Moi</a></li>
-                                    <li><a href="index.php" class="btn btn-blue">Déconnexion</a></li>
+                                    <li><a href="presentation.php"><?php if(isset($_SESSION['id'])) echo $_SESSION['prenom']; ?></a></li>
+                                    <li><a href="#" id="lienlogout" class="btn btn-blue">Déconnexion</a></li>
 				</ul>
 			</div>
 			<!-- /.navbar-collapse -->
@@ -74,6 +91,7 @@
 					<div class="row">
 						<div class="col-md-12 text-center">
 							<h3 class="light white">Rester connecter.</h3>
+                                                        <img class="light white" src="img/ecole.png"/><br/>
 							<h1 class="white typed">L'ECE Paris là où tout devient possible.</h1>
 							<span class="typed-cursor">|</span>
 						</div>
@@ -292,6 +310,27 @@
 	<script src="js/typewriter.js"></script>
 	<script src="js/jquery.onepagenav.js"></script>
 	<script src="js/main.js"></script>
+        <script>
+            $(document).ready(function(){
+                $('#lienlogout').click(function(){
+                     //alert("connecté");
+                     var action = "logout";
+                     $.ajax({
+                            url: "action.php",
+                            method: "POST",
+                            data: {action:action},
+                            success:function(){
+                                //document.location.href("index.php");
+                            }
+                    });
+                });
+            });
+        </script>
 </body>
 
 </html>
+<?php 
+}
+else {
+    header('Location: index.php');
+}?>
